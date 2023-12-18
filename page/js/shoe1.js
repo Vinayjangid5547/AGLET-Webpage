@@ -16,7 +16,9 @@ let colorType=1;
 const names = [
     [
         "Red Nike Jordan Max Aura 3",
-        "Black Nike Jordan Max Aura 3"
+        "Black Nike Jordan Max Aura 3",
+        "Blue Nike Jordan Max Aura 3",
+        "Gray Nike Jordan Max Aura 3"
     ],
 ];
 
