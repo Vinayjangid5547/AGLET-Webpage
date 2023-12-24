@@ -13,15 +13,6 @@ const colorBtn = document.querySelectorAll(".color");
 let id=1;
 let colorType=1;
 
-const names = [
-    [
-        "Red Nike Jordan Max Aura 3",
-        "Black Nike Jordan Max Aura 3",
-        "Blue Nike Jordan Max Aura 3",
-        "Gray Nike Jordan Max Aura 3"
-    ],
-];
-
 const ratings=[4,5,3];
 
 function getImage( imgType, shoe, colorType, id, extension){

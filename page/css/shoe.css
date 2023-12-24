@@ -339,9 +339,15 @@ main{
     }
 }
 
-@media screen and (max-width:450px){
+@media screen and (max-width:530px){
     .back{
-        font-size: 200px;
-        height: 80%;
+        top: 5%;
+        width: 90%;
+    }
+}
+
+@media screen and (max-width:320px){
+    .back{
+        top: 10;
     }
 }
