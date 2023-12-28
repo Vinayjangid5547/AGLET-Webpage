@@ -195,7 +195,6 @@ main{
 .colors li{
     width: 2em;
     height: 2em;
-    background: red;
     border-radius: 50%;
     border: 3px #f6f6f6 solid;
     cursor: pointer;
