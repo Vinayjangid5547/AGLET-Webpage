@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
 
 * {
     margin: 0;
@@ -19,7 +19,8 @@ input {
 }
 
 body {
-    font-family: 'Montserrat', 'PT Sans', sans-serif;
+    font-family: 'Michroma', sans-serif;
+    margin: auto;
 }
 
 h1 {
@@ -357,7 +358,8 @@ header {
     width: 100%;
     z-index: 1000000;
     transition: all 0.4s ease-out 0s;
-
+    max-width: 1600px;
+    flex-wrap: wrap;
 }
 
 .sticky {
@@ -371,7 +373,8 @@ header {
 }
 
 .logo {
-    width: 100px;
+    max-width: 100px;
+    width: 100%;
     height: 40px;
     border-radius: 20px;
     background: url(../img/logo.png);
@@ -388,7 +391,8 @@ header {
 }
 
 .list {
-    width: 600px;
+    max-width: 700px;
+    width: 100%;
     display: grid;
     place-items: center;
 }
@@ -399,6 +403,7 @@ header {
     justify-content: space-around;
     align-items: center;
     padding: 5px;
+    flex-wrap: wrap;
 }
 
 .list ul li {
@@ -425,7 +430,8 @@ header {
 }
 
 .log {
-    width: 100px;
+    max-width: 100px;
+    width: 100%;
     display: grid;
     place-items: center;
 }
@@ -448,7 +454,9 @@ header {
     background-image: url('../img/main.jpg');
     background-repeat: no-repeat;
     width: 100%;
+    max-width: 1600px;
     height: 100vh;
+    min-height: 500px;
     background-position: center center;
     background-size: cover;
     display: grid;
@@ -461,7 +469,7 @@ header {
     text-transform: uppercase;
     color: rgb(255, 255, 255);
     font-weight: 900;
-    font-size: 11em;
+    font-size: 8em;
     text-shadow: 2px 1px 0 black;
 }
 
@@ -490,12 +498,13 @@ header {
     align-items: center;
     justify-content: space-around;
     padding: 5px;
+    overflow: hidden;
 }
 
 .shoe-coll a {
     text-decoration: none;
     color: black;
-    width: 250px;
+    width: 25%;
     height: 350px;
     margin: 35px;
     font-size: 0.7em;
@@ -505,6 +514,8 @@ header {
     transition: all 0.4s ease-in-out;
 }
 
+
+
 .shoe-coll a:hover {
     transform: scale(1.2);
     z-index: 10000;
@@ -512,7 +523,7 @@ header {
 }
 
 .shoe-coll span {
-    font-size: 8em;
+    font-size: 6em;
     font-weight: 600;
     position: absolute;
     margin-top: 120px;
@@ -701,20 +712,20 @@ input:checked+label .description {
 
 .shoe-detail {
     width: 90%;
-    margin: 20px auto;
+    margin: 10px auto;
 }
 
 .shoe-detail h1 {
     text-transform: uppercase;
-    font-size: 2.5em;
+    font-size: 2em;
     font-weight: 700;
     margin-top: 70px;
-    line-height: 25px;
+    line-height: 30px;
     color: rgb(255, 206, 189);
 }
 
 .shoe-detail h2 {
-    margin-top: 20px;
+    margin-top: 15px;
     color: rgb(255, 206, 189);
 }
 
@@ -741,6 +752,7 @@ input:checked+label .description {
     align-items: end;
     justify-content: space-evenly;
     margin-top: -95px;
+    overflow: hidden;
 }
 
 .lim-detail {
@@ -788,7 +800,7 @@ input:checked+label .description {
     padding-top: 50px;
 }
 
-.gen-coll{
+.gen-coll {
     width: 80%;
     margin: 40px auto;
     height: 50vh;
@@ -804,7 +816,7 @@ input:checked+label .description {
     align-items: center;
 }
 
-.gen-img{
+.gen-img {
     width: 45%;
     height: 90%;
     display: flex;
@@ -815,7 +827,7 @@ input:checked+label .description {
     border: 1px solid white;
 }
 
-.gen-img a{
+.gen-img a {
     width: 30%;
     height: 20%;
     color: white;
@@ -828,7 +840,7 @@ input:checked+label .description {
     border-radius: 4px;
 }
 
-.gen-img:hover a{
+.gen-img:hover a {
     width: 100%;
     height: 100%;
     background-color: #000000ba;
@@ -836,33 +848,36 @@ input:checked+label .description {
     backdrop-filter: blur(2px);
 }
 
-.gen-detail{
+.gen-detail {
     width: 45%;
     height: 90%;
     background-color: #333;
     border-radius: 10px;
-}  
+}
 
-.gen-m1{
+.gen-m1 {
     background: url(../img/shoe-bg\ \(7\).jpg);
     background-size: cover;
 }
-.gen-m2{
+
+.gen-m2 {
     background: url(../img/shoe-bg\ \(14\).jpg);
     background-size: cover;
 }
 
-.gen-f1{
+.gen-f1 {
     background: url(../img/shoe-bg\ \(6\).jpg);
     background-size: cover;
 }
-.gen-f2{
+
+.gen-f2 {
     background: url(../img/shoe-bg\ \(13\).jpg);
     background-size: cover;
 }
+
 /* <!---------------------------------------special-------------------------------------------> */
 
-.special{
+.special {
     width: 100%;
     height: 130vh;
     background-color: #fff;
@@ -870,7 +885,7 @@ input:checked+label .description {
     overflow: hidden;
 }
 
-.spec-header{
+.spec-header {
     width: 100%;
     height: 200px;
     border-radius: 20px;
@@ -883,7 +898,7 @@ input:checked+label .description {
     align-items: center;
 }
 
-.spec-cont{
+.spec-cont {
     width: 100%;
     height: 90%;
     display: flex;
@@ -892,7 +907,7 @@ input:checked+label .description {
     align-items: center;
 }
 
-.spec-flow{
+.spec-flow {
     width: 600px;
     height: 80%;
     padding: 20px;
@@ -902,28 +917,28 @@ input:checked+label .description {
     align-items: center;
 }
 
-.flow-1{
+.flow-1 {
     width: 90%;
 }
 
-.flow-top{
+.flow-top {
     height: 20%;
 }
 
-.flow-top h1{
+.flow-top h1 {
     font-size: 3rem;
 }
 
-.flow-bott{
+.flow-bott {
     height: auto;
 }
 
-.flow-bott h1{
+.flow-bott h1 {
     font-weight: 500;
     font-size: 2rem;
 }
 
-.flow-num{
+.flow-num {
     width: 460px;
     margin: 10px;
     display: flex;
@@ -931,29 +946,30 @@ input:checked+label .description {
     align-items: center;
     justify-content: space-around;
 }
-.num-box{
+
+.num-box {
     width: 220px;
     height: 150px;
     background-color: #f0e6db;
-    background: linear-gradient(150deg, #e9e9e9,#f0e6db);
+    background: linear-gradient(150deg, #e9e9e9, #f0e6db);
     border-radius: 20px;
     margin: 5px;
     padding: 10px;
 }
 
-.num-box h1{
+.num-box h1 {
     font-weight: 600;
     font-size: 2.5rem;
 }
 
-.num-box p{
+.num-box p {
     font-weight: 600;
     width: 60%;
     font-size: 0.5rem;
     line-height: 12px;
 }
 
-.spec-2{
+.spec-2 {
     border: 1px solid bisque;
     height: 70%;
     background-image: url(../img/shoe-bg\ \(10\).jpg);
@@ -970,7 +986,7 @@ input:checked+label .description {
 
 /* <!---------------------------------------Footer-------------------------------------------> */
 
-.last-foot{
+.last-foot {
     max-width: 1600px;
     width: 100%;
     height: auto;
@@ -978,7 +994,7 @@ input:checked+label .description {
     margin: auto;
 }
 
-.last-foot1{
+.last-foot1 {
     width: 100%;
     height: auto;
     display: flex;
@@ -987,14 +1003,14 @@ input:checked+label .description {
     flex-wrap: wrap;
 }
 
-.imp{
+.imp {
     width: 250px;
     height: 250px;
     margin: 10px;
     padding-top: 40px;
 }
 
-.imp h2{
+.imp h2 {
     color: white;
     font-size: 1em;
     font-weight: 400;
@@ -1003,13 +1019,13 @@ input:checked+label .description {
     word-spacing: 4px;
 }
 
-.imp1{
+.imp1 {
     width: 100%;
     height: auto;
     margin-top: 20px;
 }
 
-.imp1 a{
+.imp1 a {
     color: gray;
     width: auto;
     height: auto;
@@ -1021,19 +1037,19 @@ input:checked+label .description {
     transition: all 0.2s ease 0s;
 }
 
-.imp a:hover{
+.imp a:hover {
     color: white;
     border-bottom: 2px solid white;
 }
 
-.help{
+.help {
     width: 250px;
     height: 250px;
     margin: 10px;
     padding-top: 40px;
 }
 
-.help h2{
+.help h2 {
     color: white;
     font-size: 1em;
     font-weight: 400;
@@ -1042,13 +1058,13 @@ input:checked+label .description {
     word-spacing: 4px;
 }
 
-.help1{
+.help1 {
     width: 100%;
     height: auto;
     margin-top: 20px;
 }
 
-.help1 a{
+.help1 a {
     color: gray;
     width: auto;
     height: auto;
@@ -1060,19 +1076,19 @@ input:checked+label .description {
     transition: all 0.2s ease 0s;
 }
 
-.help a:hover{
+.help a:hover {
     color: white;
     border-bottom: 2px solid white;
 }
 
-.follow{
+.follow {
     width: 250px;
     height: 250px;
     margin: 10px;
     padding-top: 40px;
 }
 
-.follow h2{
+.follow h2 {
     color: white;
     font-size: 1em;
     font-weight: 400;
@@ -1081,13 +1097,13 @@ input:checked+label .description {
     word-spacing: 4px;
 }
 
-.follow1{
+.follow1 {
     width: 100%;
     height: auto;
     margin-top: 20px;
 }
 
-.follow1 a{
+.follow1 a {
     color: gray;
     width: auto;
     height: auto;
@@ -1099,19 +1115,19 @@ input:checked+label .description {
     transition: all 0.2s ease 0s;
 }
 
-.follow a:hover{
+.follow a:hover {
     color: white;
     border-bottom: 2px solid white;
 }
 
-.connect{
+.connect {
     width: 400px;
     height: 250px;
     margin: 10px;
     padding-top: 40px;
 }
 
-.connect h2{
+.connect h2 {
     color: white;
     font-size: 1em;
     font-weight: 400;
@@ -1120,12 +1136,12 @@ input:checked+label .description {
     word-spacing: 4px;
 }
 
-.connect p{
+.connect p {
     color: white;
     margin-top: 20px;
 }
 
-.connect1 input{
+.connect1 input {
     width: 80%;
     height: 50px;
     padding: 20px;
@@ -1134,7 +1150,7 @@ input:checked+label .description {
     font-weight: 500;
 }
 
-.connect1 button{
+.connect1 button {
     width: 80%;
     height: 40px;
     border-radius: 5px;
@@ -1144,7 +1160,7 @@ input:checked+label .description {
     margin-top: 10px;
 }
 
-.last-foot2{
+.last-foot2 {
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -1152,22 +1168,87 @@ input:checked+label .description {
     flex-wrap: wrap;
 }
 
-.last-foot21{
+.last-foot21 {
     width: 500px;
     height: auto;
 }
 
-.last-foot21 p{
+.last-foot21 p {
     color: white;
     letter-spacing: 2px;
     word-spacing: 4px;
 }
 
-.last-foot22{
+.last-foot22 {
     width: 200px;
     height: 100px;
     display: flex;
     align-items: center;
-    justify-content: center;   
+    justify-content: center;
 }
 
+/*************************************************/
+
+
+@media screen and (max-width:922px) {
+    .main h1 {
+        font-size: 6em;
+    }
+    .list {
+        max-width: 500px;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .main h1 {
+        font-size: 4em;
+    }
+}
+
+@media screen and (max-width:330px) {
+    .main h1 {
+        font-size: 2em;
+    }
+}
+
+@media screen and (max-width:970px) {
+    .shoe-coll a span{
+        font-size: 4rem;
+    }
+}
+
+@media screen and (max-width:916px) {
+    .shoe-coll a span{
+        font-size: 3.5rem;
+    }
+    .shoe-coll a{
+        width: 22%;
+    }
+}
+
+@media screen and (max-width:900px) {
+    .shoe-coll a span{
+        font-size: 3rem;
+    }
+}
+
+@media screen and (max-width:800px) {
+    .shoe-coll a span{
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-width:675px) {
+    .shoe-coll a{
+        width: 35%;
+    }
+}
+
+@media screen and (max-width:476px) {
+    .shoe-coll a{
+        width: 30%;
+    }
+    .shoe-coll a span{
+        font-size: 2rem;
+    }
+}
