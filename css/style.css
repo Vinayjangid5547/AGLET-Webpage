@@ -1211,6 +1211,12 @@ input:checked+label .description {
     }
 }
 
+@media screen and (max-width:994px) {
+    .shoe-detail h1{
+        font-size: 1.2rem;
+    }
+}
+
 @media screen and (max-width:970px) {
     .shoe-coll a span{
         font-size: 4rem;
@@ -1224,11 +1230,39 @@ input:checked+label .description {
     .shoe-coll a{
         width: 22%;
     }
+
+    .shoe-detail h1{
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width:907px) {
+    .shoe-coll a{
+    height: 300px;
+    }
+    .shoe-coll span {
+        margin-top: 100px;
+    }
+.shoe-detail h1{
+    margin-top: 30px;
+    font-size: 1.1rem;
+    line-height: 20px;
+}
 }
 
 @media screen and (max-width:900px) {
     .shoe-coll a span{
         font-size: 3rem;
+    }
+}
+
+@media screen and (max-width:830px) {
+    .shoe-coll a{
+    height: 280px;
+    }
+    .shoe-detail h1{
+        margin-top: 20px;
+        font-size: 1rem;
     }
 }
 
@@ -1240,7 +1274,7 @@ input:checked+label .description {
 
 @media screen and (max-width:675px) {
     .shoe-coll a{
-        width: 35%;
+        width: 35%
     }
 }
 
@@ -1250,5 +1284,14 @@ input:checked+label .description {
     }
     .shoe-coll a span{
         font-size: 2rem;
+    }
+}
+
+@media screen and (max-width:359px) {
+    .shoe-coll a{
+        width: 80%;
+    }
+    .shoe-coll a span{
+        font-size: 4.5rem;
     }
 }
