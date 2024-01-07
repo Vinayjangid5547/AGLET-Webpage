@@ -601,10 +601,6 @@ header {
     margin-bottom: -10px;
 }
 
-input {
-    display: none;
-}
-
 input:checked+label {
     width: 600px;
 }
@@ -1278,6 +1274,27 @@ input:checked+label .description {
     }
 }
 
+@media screen and (max-width:525px) {
+    .shoe-detail h1{
+        font-size: 0.9rem;
+        margin-top: 50px;
+    }
+    .shoe-detail h2{
+        font-size: 0.9rem;
+    }
+
+    .shone-coll a img {
+        margin-top: -10px;
+    }
+
+    .shoe-img{
+        height: 120px;
+    }
+    .shone-coll span{
+        margin-top: -30px;
+    }
+}
+
 @media screen and (max-width:476px) {
     .shoe-coll a{
         width: 30%;
@@ -1285,12 +1302,83 @@ input:checked+label .description {
     .shoe-coll a span{
         font-size: 2rem;
     }
+
+    .shoe-detail h1{
+        font-size: 0.8rem;
+        margin-top: -30px;
+    }
+    .shoe-detail h2{
+        font-size: 0.8rem;
+        margin-top: 10px;
+    }
+
+    .shoe-coll a{
+        height: 250px;
+        width: 34%;
+        }
+        .shoe-detail h1{
+            font-size: 0.6rem;
+        }
+        .shoe-detail h2{
+            font-size: 0.6rem;
+        }
+}
+
+@media screen and (max-width:476px) {
+    .shoe-coll a{
+        height: 220px;
+        }
+}
+
+@media screen and (max-width:447px) {
+    .shoe-coll a{
+        width: 33%;
+        }
+}
+
+@media screen and (max-width:421px) {
+    .shoe-coll a{
+        width: 32%;
+        }
+}
+
+@media screen and (max-width:398px) {
+    .shoe-coll a{
+        width: 30%;
+        height: 200px;
+        }
+        .shoe-coll span{
+            margin-top: 80px;
+        }
+        .shoe-detail h1{
+            font-size: 0.5rem;
+            line-height: 0.8rem;
+            margin-top: -40px;
+        }
+        .shoe-detail h2{
+            font-size: 0.5rem;
+        }
+        
 }
 
 @media screen and (max-width:359px) {
     .shoe-coll a{
         width: 80%;
+        height: 350px;
     }
+    .shoe-coll span{
+        margin-top: 100px;
+        font-size: 5rem;
+    }
+    .shoe-detail h1{
+        font-size: 1.5rem;
+        line-height: 2rem;
+        margin-top: 80px;
+    }
+    .shoe-detail h2{
+        font-size: 1.5rem;
+    }
+
     .shoe-coll a span{
         font-size: 4.5rem;
     }
