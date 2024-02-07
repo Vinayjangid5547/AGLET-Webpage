@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGLET</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/icon.jpg" type="image/x-icon">
+</head>
+
+<body>
+    <div class="register" id="pop">
+        <div class="container" id="container">
+            <div class="form-container sign-up-container">
+                <form action="#">
+                    <h1>Create Account</h1>
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <span>or use your email for registration</span>
+                    <input type="text" placeholder="Name" />
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <input type="password" placeholder="Password" />
+                    <button>Sign Up</button>
+                </form>
+            </div>
+            <div class="form-container sign-in-container">
+                <form action="#">
+                    <h1>Login</h1>
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <span>or use your account</span>
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <a href="#">Forgot your password?</a>
+                    <button>Login</button>
+                </form>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Welcome Back!</h1>
+                        <p>To keep connected with us please login with your personal info</p>
+                        <button class="ghost" id="signIn">Login</button><br>
+                        <button class="ghost" onclick="toggle()">Close</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey with us</p>
+                        <button class="ghost" id="signUp">Sign Up</button><br>
+                        <button class="ghost" onclick="toggle()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="containerr" id="cont">
+        <!----------------Header----------------->
+        <header id="head">
+            <div class="logo">
+                <a href=""></a>
+            </div>
+            <div class="list">
+                <ul>
+                    <li><a href="">New Arrival</a></li>
+                    <li><a href="">Appearance</a></li>
+                    <li><a href="">Limited Edition</a></li>
+                    <li><a href="">Order</a></li>
+                </ul>
+            </div>
+            <div class="log">
+                <button type="button" onclick="toggle()">SignUp</button>
+            </div>
+        </header>
+        <!-------------Header-Close----------------->
+
+        <div class="main">
+            <h1>Aglet</h1>
+            <h4>Jorden maxx classic 4<h4>
+        </div>
+
+        <!--------------Shoe-Collection----------------->
+
+        <!-- <div class="wrapper">
+            <div class="container12">
+                <input type="radio" name="slide" id="c1" checked>
+                <label for="c1" class="card">
+                    <div class="row">
+                        <div class="icon">1</div>
+                        <div class="description">
+                            <h4>Winter</h4>
+                            <p>Winter has so much to offer -
+                             creative activities</p>
+                        </div>
+                    </div>
+                </label>
+                <input type="radio" name="slide" id="c2" >
+                <label for="c2" class="card">
+                    <div class="row">
+                        <div class="icon">2</div>
+                        <div class="description">
+                            <h4>Digital Technology</h4>
+                            <p>Gets better every day -
+                             stay tuned</p>
+                        </div>
+                    </div>
+                </label>
+                <input type="radio" name="slide" id="c3" >
+                <label for="c3" class="card">
+                    <div class="row">
+                        <div class="icon">3</div>
+                        <div class="description">
+                            <h4>Globalization</h4>
+                            <p>Help people all over the world</p>
+                        </div>
+                    </div>
+                </label>
+                <input type="radio" name="slide" id="c4" >
+                <label for="c4" class="card">
+                    <div class="row">
+                        <div class="icon">4</div>
+                        <div class="description">
+                            <h4>New technologies</h4>
+                            <p>Space engineering becomes
+                             more and more advanced</p>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div> -->
+        
+        <!--------------Shoe-Collection----------------->
+        <div class="shoe-box">
+            <h1>Collection</h1>
+            <div class="shoe-coll">
+                <a href="page/Shoe1.html" class="shoe1">
+                    <span>NIKE</span>
+                    <div class="shoe-img">
+                        <img src="page/img/showcase/shoe1-1/img1.png" alt="">
+                    </div>
+                    <div class="shoe-detail">
+                        <h1>Jorden Max Aura 3</h1>
+                        <h2>₹5999</h2>
+                    </div>
+                </a>
+                <a href="page/Shoe2.html" class="shoe2">
+                    <span>NIKE</span>
+                    <div class="shoe-img">
+                        <img src="page/img/showcase/shoe2-1/img1.png" alt="">
+                    </div>
+                    <div class="shoe-detail">
+                        <h1>Jorden Max Aura 4</h1>
+                        <h2>₹7999</h2>
+                    </div>
+                </a>
+                <a href="page/Shoe3.html" class="shoe3">
+                    <span>NIKE</span>
+                    <div class="shoe-img">
+                        <img src="page/img/showcase/shoe3-1/img4.png" alt="">
+                    </div>
+                    <div class="shoe-detail">
+                        <h1>Jorden Max Aura 6</h1>
+                        <h2>₹9999</h2>
+                    </div>
+                </a>
+                <a href="page/Shoe4.html" class="shoe4">
+                    <span>NIKE</span>
+                    <div class="shoe-img">
+                        <img src="page/img/showcase/shoe4-1/img1.png" alt="">
+                    </div>
+                    <div class="shoe-detail">
+                        <h1>Jorden Max Aura 3</h1>
+                        <h2>₹5999</h2>
+                    </div>
+                </a>
+                <a href="page/Shoe5.html" class="shoe5">
+                    <span>NIKE</span>
+                    <div class="shoe-img">
+                        <img src="page/img/showcase/shoe5-1/img1.png" alt="">
+                    </div>
+                    <div class="shoe-detail">
+                        <h1>Jorden Max Aura 4</h1>
+                        <h2>₹7999</h2>
+                    </div>
+                </a>
+                <a href="page/Shoe6.html" class="shoe6">
+                    <span>NIKE</span>
+                    <div class="shoe-img">
+                        <img src="page/img/showcase/shoe6-1/img1.png" alt="">
+                    </div>
+                    <div class="shoe-detail">
+                        <h1>Jorden Max Aura 6</h1>
+                        <h2>₹9999</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!--------------Shoe-Collection----------------->
+        <div class="limited">
+            <div class="head">
+                <h1>Limited Edition</h1>
+            </div>
+            <div class="limited-shoe">
+                <div class="lim-detail">
+                    <h1>01</h1>
+                    <h2>Limited Edition</h2>
+                </div>
+                <div class="lim-shoe">
+                    <div class="lim-shoe-1">
+                        <img src="page/img/showcase/shoe1-1/img1.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--------------GENDER----------------->
+        <div class="gender">
+            <div class="gen-head">
+                <h1>Shoe Collections</h1>
+            </div>
+            <div class="gen-coll">
+                <div class="gen-img gen-m1">
+                    <a href="#">
+                        Mens Shoes
+                    </a>
+                </div>
+                <div class="gen-detail gen-m2">
+
+                </div>
+            </div>
+            <div class="gen-coll">
+                <div class="gen-img gen-f1">
+                    <a href="#">
+                        Womens Shoes
+                    </a>
+                </div>
+                <div class="gen-detail gen-f2">
+
+                </div>
+            </div>
+        </div>
+        <!----------------------------------speacial------------------------------------->
+        <div class="special">
+            <div class="spec-header">
+                <h1>Special Features</h1>
+                <button class="btn btn-primary">More</button>
+            </div>
+            <div class="spec-cont">
+                <div class="spec-flow">
+                    <div class="flow-1 flow-top">
+                        <h1>More Special Feature</h1>
+                    </div>
+
+                    <div class="flow-1 flow-bott">
+
+                        <h1>Some Number About Us</h1>
+                        <div class="flow-num">
+
+                            <div class="num-box">
+                                <h1>+200</h1>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, rerum?</p>
+                            </div>
+                            <div class="num-box">
+                                <h1>+500</h1>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, rerum?</p>
+                            </div>
+                            <div class="num-box">
+                                <h1>+100</h1>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, rerum?</p>
+                            </div>
+                            <div class="num-box">
+                                <h1>+4000</h1>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, rerum?</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="spec-flow spec-2">
+
+                </div>
+            </div>
+        </div>
+
+        <!-----------------------------------Footer-------------------------------------->
+        <div class="last-foot">
+            <div class="last-foot1">
+                <div class="imp">
+                    <h2>Important Link</h2>
+
+                    <div class="imp1">
+                        <a href="#">refunct/cancellation</a>
+                        <a href="#">terms and conditions</a>
+                        <a href="#">FAQ</a>
+                        <a href="#">privacy policy</a>
+                        <a href="#">shipping</a>
+                    </div>
+
+                </div>
+
+                <div class="help">
+                    <h2>Need Help</h2>
+
+                    <div class="help1">
+                        <a href="#">my account</a>
+                        <a href="#">size chart</a>
+                        <a href="Shoes Pages/Contact.html">contact us</a>
+                    </div>
+
+                </div>
+
+                <div class="follow">
+                    <h2>Follow</h2>
+
+                    <div class="follow1">
+                        <a href="#">instagram</a>
+                        <a href="#">facebook</a>
+                        <a href="#">stores</a>
+                        <a href="#">twitter</a>
+                    </div>
+
+                </div>
+
+                <div class="connect">
+                    <h2>Subscribe to our newsletter</h2>
+                    <p>Join our mailing list to receive the latest news.</p>
+
+                    <div class="connect1">
+                        <input type="email" placeholder="Enter Your Email Address"><br>
+                        <button type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="last-foot2">
+                <div class="last-foot21">
+                    <p>&copy; Super Sneakers India Pvt. Ltd. 2022</p>
+                </div>
+
+                <div class="last-foot22">
+                    <p>Lorem</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="js/style.js"></script>
+</body>
+
+</html>
