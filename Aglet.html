@@ -4,360 +4,422 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AGLET</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="img/icon.jpg" type="image/x-icon">
+    <title>AGLET - Premium Footwear</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="register" id="pop">
-        <div class="container" id="container">
-            <div class="form-container sign-up-container">
-                <form action="#">
-                    <h1>Create Account</h1>
-                    <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <span>or use your email for registration</span>
-                    <input type="text" placeholder="Name" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <input type="password" placeholder="Password" />
-                    <button>Sign Up</button>
-                </form>
-            </div>
-            <div class="form-container sign-in-container">
-                <form action="#">
-                    <h1>Login</h1>
-                    <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <span>or use your account</span>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <a href="#">Forgot your password?</a>
-                    <button>Login</button>
-                </form>
-            </div>
-            <div class="overlay-container">
-                <div class="overlay">
-                    <div class="overlay-panel overlay-left">
-                        <h1>Welcome Back!</h1>
-                        <p>To keep connected with us please login with your personal info</p>
-                        <button class="ghost" id="signIn">Login</button><br>
-                        <button class="ghost" onclick="toggle()">Close</button>
-                    </div>
-                    <div class="overlay-panel overlay-right">
-                        <h1>Hello, Friend!</h1>
-                        <p>Enter your personal details and start journey with us</p>
-                        <button class="ghost" id="signUp">Sign Up</button><br>
-                        <button class="ghost" onclick="toggle()">Close</button>
+    <!-- Login/Signup Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="container-fluid">
+                        <div class="row g-0">
+                            <!-- Form Side -->
+                            <div class="col-md-6 p-5">
+                                <div class="login-container" id="loginContainer">
+                                    <!-- Login Form -->
+                                    <div class="login-form">
+                                        <h2 class="mb-4 fw-bold">Login</h2>
+                                        <div class="social-login d-flex justify-content-center mb-4">
+                                            <a href="#" class="social-icon me-3"><i class="fab fa-facebook-f"></i></a>
+                                            <a href="#" class="social-icon me-3"><i class="fab fa-google"></i></a>
+                                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                                        </div>
+                                        <p class="text-muted small mb-4">or use your account</p>
+                                        <form>
+                                            <div class="mb-3">
+                                                <input type="email" class="form-control" placeholder="Email">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="password" class="form-control" placeholder="Password">
+                                            </div>
+                                            <div class="mb-3 text-end">
+                                                <a href="#" class="text-decoration-none small">Forgot your password?</a>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary w-100">Login</button>
+                                        </form>
+                                    </div>
+
+                                    <!-- Sign Up Form -->
+                                    <div class="signup-form d-none">
+                                        <h2 class="mb-4 fw-bold">Create Account</h2>
+                                        <div class="social-login d-flex justify-content-center mb-4">
+                                            <a href="#" class="social-icon me-3"><i class="fab fa-facebook-f"></i></a>
+                                            <a href="#" class="social-icon me-3"><i class="fab fa-google"></i></a>
+                                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                                        </div>
+                                        <p class="text-muted small mb-4">or use your email for registration</p>
+                                        <form>
+                                            <div class="mb-3">
+                                                <input type="text" class="form-control" placeholder="Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="email" class="form-control" placeholder="Email">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="password" class="form-control" placeholder="Password">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="password" class="form-control"
+                                                    placeholder="Confirm Password">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Colored Side -->
+                            <div class="col-md-6 bg-gradient p-5 text-white d-flex align-items-center">
+                                <div class="login-overlay-panel text-center">
+                                    <!-- Login Panel -->
+                                    <div class="login-right-panel">
+                                        <h2 class="mb-4 fw-bold">Hello, Friend!</h2>
+                                        <p class="mb-5">Enter your personal details and start journey with us</p>
+                                        <button class="btn btn-outline-light mb-3" id="showSignUp">Sign Up</button>
+                                        <button class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+                                    </div>
+
+                                    <!-- Sign Up Panel -->
+                                    <div class="login-left-panel d-none">
+                                        <h2 class="mb-4 fw-bold">Welcome Back!</h2>
+                                        <p class="mb-5">To keep connected with us please login with your personal info
+                                        </p>
+                                        <button class="btn btn-outline-light mb-3" id="showLogin">Login</button>
+                                        <button class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
-    <div class="containerr" id="cont">
-        <!----------------Header----------------->
-        <header id="head">
-            <div class="logo">
-                <a href=""></a>
-            </div>
-            <div class="list">
-                <ul>
-                    <li><a href="">New Arrival</a></li>
-                    <li><a href="">Appearance</a></li>
-                    <li><a href="">Limited Edition</a></li>
-                    <li><a href="">Order</a></li>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <div class="logo-box">AGLET</div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#new-arrival">New Arrival</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#appearance">Appearance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#limited">Limited Edition</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#order">Order</a>
+                    </li>
                 </ul>
-            </div>
-            <div class="log">
-                <button type="button" onclick="toggle()">SignUp</button>
-            </div>
-        </header>
-        <!-------------Header-Close----------------->
-
-        <div class="main">
-            <h1>Aglet</h1>
-            <h4>Jorden maxx classic 4<h4>
-        </div>
-
-        <!--------------Shoe-Collection----------------->
-
-        <!--<div class="wrapper">
-            <div class="container12">
-                <input type="radio" name="slide" id="c1" checked>
-                <label for="c1" class="card">
-                    <div class="row">
-                        <div class="icon">1</div>
-                        <div class="description">
-                            <h4>Winter</h4>
-                            <p>Winter has so much to offer -
-                             creative activities</p>
-                        </div>
-                    </div>
-                </label>
-                <input type="radio" name="slide" id="c2" >
-                <label for="c2" class="card">
-                    <div class="row">
-                        <div class="icon">2</div>
-                        <div class="description">
-                            <h4>Digital Technology</h4>
-                            <p>Gets better every day -
-                             stay tuned</p>
-                        </div>
-                    </div>
-                </label>
-                <input type="radio" name="slide" id="c3" >
-                <label for="c3" class="card">
-                    <div class="row">
-                        <div class="icon">3</div>
-                        <div class="description">
-                            <h4>Globalization</h4>
-                            <p>Help people all over the world</p>
-                        </div>
-                    </div>
-                </label>
-                <input type="radio" name="slide" id="c4" >
-                <label for="c4" class="card">
-                    <div class="row">
-                        <div class="icon">4</div>
-                        <div class="description">
-                            <h4>New technologies</h4>
-                            <p>Space engineering becomes
-                             more and more advanced</p>
-                        </div>
-                    </div>
-                </label>
-            </div>
-        </div> -->
-        
-        <!--------------Shoe-Collection----------------->
-        <div class="shoe-box">
-            <h1>Collection</h1>
-            <div class="shoe-coll">
-                <a href="page/Shoe1.html" class="shoe1">
-                    <span>NIKE</span>
-                    <div class="shoe-img">
-                        <img src="page/img/showcase/shoe1-1/img1.png" alt="">
-                    </div>
-                    <div class="shoe-detail">
-                        <h1>Jorden Max Aura 3</h1>
-                        <h2>₹5999</h2>
-                    </div>
-                </a>
-                <a href="page/Shoe2.html" class="shoe2">
-                    <span>NIKE</span>
-                    <div class="shoe-img">
-                        <img src="page/img/showcase/shoe2-1/img1.png" alt="">
-                    </div>
-                    <div class="shoe-detail">
-                        <h1>Jorden Max Aura 4</h1>
-                        <h2>₹7999</h2>
-                    </div>
-                </a>
-                <a href="page/Shoe3.html" class="shoe3">
-                    <span>NIKE</span>
-                    <div class="shoe-img">
-                        <img src="page/img/showcase/shoe3-1/img4.png" alt="">
-                    </div>
-                    <div class="shoe-detail">
-                        <h1>Jorden Max Aura 6</h1>
-                        <h2>₹9999</h2>
-                    </div>
-                </a>
-                <a href="page/Shoe4.html" class="shoe4">
-                    <span>NIKE</span>
-                    <div class="shoe-img">
-                        <img src="page/img/showcase/shoe4-1/img1.png" alt="">
-                    </div>
-                    <div class="shoe-detail">
-                        <h1>Jorden Max Aura 3</h1>
-                        <h2>₹5999</h2>
-                    </div>
-                </a>
-                <a href="page/Shoe5.html" class="shoe5">
-                    <span>NIKE</span>
-                    <div class="shoe-img">
-                        <img src="page/img/showcase/shoe5-1/img1.png" alt="">
-                    </div>
-                    <div class="shoe-detail">
-                        <h1>Jorden Max Aura 4</h1>
-                        <h2>₹7999</h2>
-                    </div>
-                </a>
-                <a href="page/Shoe6.html" class="shoe6">
-                    <span>NIKE</span>
-                    <div class="shoe-img">
-                        <img src="page/img/showcase/shoe6-1/img1.png" alt="">
-                    </div>
-                    <div class="shoe-detail">
-                        <h1>Jorden Max Aura 6</h1>
-                        <h2>₹9999</h2>
-                    </div>
-                </a>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Sign Up</button>
             </div>
         </div>
+    </nav>
 
-        <!--------------Shoe-Collection----------------->
-        <div class="limited">
-            <div class="head">
-                <h1>Limited Edition</h1>
-            </div>
-            <div class="limited-shoe">
-                <div class="lim-detail">
-                    <h1>01</h1>
-                    <h2>Limited Edition</h2>
-                </div>
-                <div class="lim-shoe">
-                    <div class="lim-shoe-1">
-                        <img src="page/img/showcase/shoe1-1/img1.png" alt="">
-                    </div>
-                </div>
-            </div>
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container h-100 d-flex flex-column justify-content-center align-items-center text-center">
+            <h1 class="display-1 fw-bold text-white text-uppercase mb-3">Aglet</h1>
+            <h4 class="text-light mb-5">Jordan Maxx Classic 4</h4>
+            <a href="#collection" class="btn btn-lg btn-primary">Explore Collection</a>
         </div>
+    </section>
 
-
-        <!--------------GENDER----------------->
-        <div class="gender">
-            <div class="gen-head">
-                <h1>Shoe Collections</h1>
-            </div>
-            <div class="gen-coll">
-                <div class="gen-img gen-m1">
-                    <a href="#">
-                        Mens Shoes
+    <!-- Collection Section -->
+    <section class="collection-section py-5" id="collection">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Collection</h2>
+            <div class="row g-4">
+                <!-- Shoe 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <a href="page/Shoe1.html" class="shoe-card shoe-red">
+                        <span class="brand-watermark">NIKE</span>
+                        <div class="shoe-img">
+                            <img src="page/img/showcase/shoe1-1/img1.png" alt="Jordan Max Aura 3" class="img-fluid">
+                        </div>
+                        <div class="shoe-info">
+                            <h3>Jordan Max Aura 3</h3>
+                            <p class="price">₹5999</p>
+                        </div>
                     </a>
                 </div>
-                <div class="gen-detail gen-m2">
 
-                </div>
-            </div>
-            <div class="gen-coll">
-                <div class="gen-img gen-f1">
-                    <a href="#">
-                        Womens Shoes
+                <!-- Shoe 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <a href="page/Shoe2.html" class="shoe-card shoe-orange">
+                        <span class="brand-watermark">NIKE</span>
+                        <div class="shoe-img">
+                            <img src="page/img/showcase/shoe2-1/img1.png" alt="Jordan Max Aura 4" class="img-fluid">
+                        </div>
+                        <div class="shoe-info">
+                            <h3>Jordan Max Aura 4</h3>
+                            <p class="price">₹7999</p>
+                        </div>
                     </a>
                 </div>
-                <div class="gen-detail gen-f2">
 
-                </div>
-            </div>
-        </div>
-        <!----------------------------------speacial------------------------------------->
-        <div class="special">
-            <div class="spec-header">
-                <h1>Special Features</h1>
-                <button class="btn btn-primary">More</button>
-            </div>
-            <div class="spec-cont">
-                <div class="spec-flow">
-                    <div class="flow-1 flow-top">
-                        <h1>More Special Feature</h1>
-                    </div>
-
-                    <div class="flow-1 flow-bott">
-
-                        <h1>Some Number About Us</h1>
-                        <div class="flow-num">
-
-                            <div class="num-box">
-                                <h1>+200</h1>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, rerum?</p>
-                            </div>
-                            <div class="num-box">
-                                <h1>+500</h1>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, rerum?</p>
-                            </div>
-                            <div class="num-box">
-                                <h1>+100</h1>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, rerum?</p>
-                            </div>
-                            <div class="num-box">
-                                <h1>+4000</h1>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, rerum?</p>
-                            </div>
-
+                <!-- Shoe 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <a href="page/Shoe3.html" class="shoe-card shoe-blue">
+                        <span class="brand-watermark">NIKE</span>
+                        <div class="shoe-img">
+                            <img src="page/img/showcase/shoe3-1/img4.png" alt="Jordan Max Aura 6" class="img-fluid">
                         </div>
-
-                    </div>
+                        <div class="shoe-info">
+                            <h3>Jordan Max Aura 6</h3>
+                            <p class="price">₹9999</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="spec-flow spec-2">
 
+                <!-- Shoe 4 -->
+                <div class="col-md-6 col-lg-4">
+                    <a href="page/Shoe4.html" class="shoe-card shoe-pink">
+                        <span class="brand-watermark">NIKE</span>
+                        <div class="shoe-img">
+                            <img src="page/img/showcase/shoe4-1/img1.png" alt="Jordan Max Aura 3" class="img-fluid">
+                        </div>
+                        <div class="shoe-info">
+                            <h3>Jordan Max Aura 3</h3>
+                            <p class="price">₹5999</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Shoe 5 -->
+                <div class="col-md-6 col-lg-4">
+                    <a href="page/Shoe5.html" class="shoe-card shoe-gray">
+                        <span class="brand-watermark">NIKE</span>
+                        <div class="shoe-img">
+                            <img src="page/img/showcase/shoe5-1/img1.png" alt="Jordan Max Aura 4" class="img-fluid">
+                        </div>
+                        <div class="shoe-info">
+                            <h3>Jordan Max Aura 4</h3>
+                            <p class="price">₹7999</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Shoe 6 -->
+                <div class="col-md-6 col-lg-4">
+                    <a href="page/Shoe6.html" class="shoe-card shoe-black">
+                        <span class="brand-watermark">NIKE</span>
+                        <div class="shoe-img">
+                            <img src="page/img/showcase/shoe6-1/img1.png" alt="Jordan Max Aura 6" class="img-fluid">
+                        </div>
+                        <div class="shoe-info">
+                            <h3>Jordan Max Aura 6</h3>
+                            <p class="price">₹9999</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-----------------------------------Footer-------------------------------------->
-        <div class="last-foot">
-            <div class="last-foot1">
-                <div class="imp">
-                    <h2>Important Link</h2>
-
-                    <div class="imp1">
-                        <a href="#">refunct/cancellation</a>
-                        <a href="#">terms and conditions</a>
-                        <a href="#">FAQ</a>
-                        <a href="#">privacy policy</a>
-                        <a href="#">shipping</a>
+    <!-- Limited Edition Section -->
+    <section class="limited-section py-5" id="limited">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Limited Edition</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <div class="limited-info">
+                        <div class="limited-number">01</div>
+                        <h3 class="mb-3">Limited Edition</h3>
+                        <p class="mb-4">Exclusive design with premium materials. Our limited edition shoes are crafted
+                            with attention to detail and superior comfort.</p>
+                        <a href="#" class="btn btn-dark">Shop Now</a>
                     </div>
-
                 </div>
-
-                <div class="help">
-                    <h2>Need Help</h2>
-
-                    <div class="help1">
-                        <a href="#">my account</a>
-                        <a href="#">size chart</a>
-                        <a href="Shoes Pages/Contact.html">contact us</a>
-                    </div>
-
-                </div>
-
-                <div class="follow">
-                    <h2>Follow</h2>
-
-                    <div class="follow1">
-                        <a href="#">instagram</a>
-                        <a href="#">facebook</a>
-                        <a href="#">stores</a>
-                        <a href="#">twitter</a>
-                    </div>
-
-                </div>
-
-                <div class="connect">
-                    <h2>Subscribe to our newsletter</h2>
-                    <p>Join our mailing list to receive the latest news.</p>
-
-                    <div class="connect1">
-                        <input type="email" placeholder="Enter Your Email Address"><br>
-                        <button type="button">Subscribe</button>
+                <div class="col-lg-7">
+                    <div class="limited-showcase">
+                        <img src="page/img/showcase/shoe1-1/img1.png" alt="Limited Edition Shoe" class="img-fluid">
                     </div>
                 </div>
             </div>
-
-            <div class="last-foot2">
-                <div class="last-foot21">
-                    <p>&copy; Super Sneakers India Pvt. Ltd. 2022</p>
-                </div>
-
-                <div class="last-foot22">
-                    <p>Lorem</p>
-                </div>
-            </div>
-
         </div>
+    </section>
 
-    </div>
-    <script src="js/style.js"></script>
+    <!-- Gender Collections -->
+    <section class="gender-section py-5" id="appearance">
+        <div class="container">
+            <h2 class="section-title text-center text-white mb-5">Shoe Collections</h2>
+
+            <!-- Men's Collection -->
+            <div class="gender-card mb-5">
+                <div class="row g-0">
+                    <div class="col-md-6">
+                        <div class="gender-img mens-img">
+                            <div class="gender-overlay">
+                                <a href="#" class="btn btn-dark">Mens Shoes</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="gender-showcase mens-showcase"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Women's Collection -->
+            <div class="gender-card">
+                <div class="row g-0">
+                    <div class="col-md-6">
+                        <div class="gender-img womens-img">
+                            <div class="gender-overlay">
+                                <a href="#" class="btn btn-dark">Womens Shoes</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="gender-showcase womens-showcase"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Features Section -->
+    <section class="features-section py-5" id="order">
+        <div class="container">
+            <div class="features-header d-flex justify-content-between align-items-center mb-5">
+                <h2 class="section-title mb-0">Special Features</h2>
+                <a href="#" class="btn btn-primary">More</a>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="feature-box mb-4">
+                        <h3 class="mb-3">More Special Feature</h3>
+                        <p>Our shoes are designed with cutting-edge technology to provide maximum comfort and
+                            performance.</p>
+                    </div>
+
+                    <div class="feature-box">
+                        <h3 class="mb-4">Some Numbers About Us</h3>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="stat-box">
+                                    <h4 class="stat-number">+200</h4>
+                                    <p class="mb-0">Unique shoe designs created by our talented team of designers</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="stat-box">
+                                    <h4 class="stat-number">+500</h4>
+                                    <p class="mb-0">Retail locations worldwide where you can find our products</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="stat-box">
+                                    <h4 class="stat-number">+100</h4>
+                                    <p class="mb-0">Countries where our shoes are available for purchase</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="stat-box">
+                                    <h4 class="stat-number">+4000</h4>
+                                    <p class="mb-0">Happy customers who have rated our products 5 stars</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="feature-image"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section pt-5">
+        <div class="container">
+            <div class="row">
+                <!-- Important Links -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h5 class="footer-heading">Important Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Refund/Cancellation</a></li>
+                        <li><a href="#">Terms and Conditions</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Shipping</a></li>
+                    </ul>
+                </div>
+
+                <!-- Need Help -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h5 class="footer-heading">Need Help</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Size Chart</a></li>
+                        <li><a href="Shoes Pages/Contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Follow -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h5 class="footer-heading">Follow</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Stores</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <h5 class="footer-heading">Subscribe to our newsletter</h5>
+                    <p class="text-white-50 mb-3">Join our mailing list to receive the latest news.</p>
+                    <form>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Enter Your Email Address">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom py-3 mt-4">
+                <div class="row">
+                    <div class="col-md-6 mb-2 mb-md-0">
+                        <p class="mb-0 text-white-50">&copy; Super Sneakers India Pvt. Ltd. <span
+                                id="currentYear"></span></p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p class="mb-0 text-white-50">All Rights Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
 </body>
 
 </html>
