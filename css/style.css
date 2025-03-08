@@ -248,11 +248,11 @@ a {
 }
 
 .shoe-img img {
-    max-width: 130%;
-    transition: transform 0.5s ease;
+    max-width: 90%;
+    transition: all 0.5s ease-in;
 }
-
 .shoe-card:hover .shoe-img img {
+    max-width: 130%;
     transform: scale(1.1);
 }
 
