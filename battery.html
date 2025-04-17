@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Monitor</title>
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --primary-glow: rgba(46, 204, 113, 0.4);
+            --background: #121212;
+            --card-bg: #1e1e1e;
+            --card-border: #2a2a2a;
+            --text: #ffffff;
+            --text-secondary: #aaaaaa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            z-index: 1;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0.7;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .back-button {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .signal-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .battery-circle {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+        }
+
+        .battery-outer {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .battery-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 0%, transparent 0%);
+            transition: background 1s ease;
+            filter: drop-shadow(0 0 10px var(--primary-glow));
+        }
+
+        .battery-inner {
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .battery-label {
+            font-size: 12px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px var(--primary-glow);
+        }
+
+        .battery-percentage {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .battery-percentage::after {
+            content: '%';
+            font-size: 24px;
+            margin-left: 2px;
+            align-self: flex-start;
+            margin-top: 10px;
+        }
+
+        .battery-status {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .battery-details {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .detail-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .detail-value {
+            font-weight: 500;
+        }
+
+        .button {
+            background-color: var(--primary);
+            color: #000;
+            border: none;
+            border-radius: 15px;
+            padding: 15px;
+            width: 100%;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+            z-index: -1;
+        }
+
+        .button:hover::before {
+            left: 100%;
+        }
+
+        .button:hover {
+            background-color: var(--primary-dark);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .battery-visual {
+            width: 120px;
+            height: 200px;
+            margin: 20px auto;
+            border-radius: 20px 20px 5px 5px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .battery-visual::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px 5px 0 0;
+        }
+
+        .battery-fill {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: var(--primary);
+            transition: height 1s ease;
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .water-effect {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, var(--primary) 0%, transparent 100%);
+            opacity: 0.3;
+            animation: wave 3s infinite linear;
+        }
+
+        @keyframes wave {
+            0% {
+                transform: translateY(0) scaleY(1);
+            }
+            50% {
+                transform: translateY(-5px) scaleY(1.02);
+            }
+            100% {
+                transform: translateY(0) scaleY(1);
+            }
+        }
+
+        .water-ripple {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 10px;
+            background: repeating-linear-gradient(90deg, var(--primary), transparent 20px);
+            opacity: 0.5;
+            animation: ripple 2s infinite linear;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .battery-percent {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            font-weight: bold;
+            z-index: 1;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px var(--primary-glow);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .charging-port {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .charging-port:hover {
+            transform: translateY(-3px);
+        }
+
+        .port-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .port-details {
+            flex: 1;
+        }
+
+        .port-type {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .port-specs {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 10px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary);
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progress-shine 2s infinite linear;
+        }
+
+        @keyframes progress-shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .car-image {
+            width: 100%;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .car-image svg {
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .car-image:hover svg {
+            transform: scale(1.05);
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .subtitle {
+            color: var(--primary);
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px var(--primary-glow);
+        }
+
+        .info-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
+
+        .not-supported {
+            text-align: center;
+            padding: 20px;
+            color: #ff6b6b;
+            background-color: rgba(255, 107, 107, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            margin-top: 20px;
+        }
+
+        .glow {
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                filter: drop-shadow(0 0 2px var(--primary-glow));
+            }
+            100% {
+                filter: drop-shadow(0 0 10px var(--primary-glow));
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Calculation section styles */
+        .calculation-section {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .calculation-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary);
+            text-shadow: 0 0 5px var(--primary-glow);
+        }
+
+        .calculation-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+
+        .calculation-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .calculation-value {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .calculation-input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: var(--text);
+            padding: 5px 10px;
+            width: 80px;
+            text-align: right;
+        }
+
+        .calculation-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 5px var(--primary-glow);
+        }
+
+        .calculation-result {
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 5px var(--primary-glow);
+        }
+
+        .divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 15px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .card {
+                max-width: 100%;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 18px;
+            color: var(--text);
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading-screen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading Battery Monitor...</div>
+    </div>
+
+    <!-- Particles.js Background -->
+    <div id="particles-js"></div>
+    
+    <h1 class="fade-in">Battery Monitor</h1>
+    
+    <div class="container">
+        <!-- Battery Condition Card -->
+        <div class="card fade-in">
+            <div class="card-header">
+                <div class="back-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </div>
+                <div>Battery Condition</div>
+                <div class="signal-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 20h.01"></path>
+                        <path d="M7 20v-4"></path>
+                        <path d="M12 20v-8"></path>
+                        <path d="M17 20v-12"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="battery-circle">
+                <div class="battery-outer">
+                    <div class="battery-progress" id="battery-progress-circle"></div>
+                    <div class="battery-inner">
+                        <div class="battery-label glow">CHECK BATTERY HEALTH</div>
+                        <div class="battery-percentage" id="battery-percentage-circle">--</div>
+                        <div class="battery-status" id="battery-status">Checking...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="battery-level-text">--% Battery</div>
+            <div class="battery-status">Limit: 100%</div>
+            
+            <div class="battery-details">
+                <div class="detail-row">
+                    <div class="detail-label">Charging Status</div>
+                    <div class="detail-value" id="charging-status">--</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Charging Time</div>
+                    <div class="detail-value" id="charging-time">--</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Discharge Time</div>
+                    <div class="detail-value" id="discharging-time">--</div>
+                </div>
+            </div>
+            
+            <!-- Battery & Time Calculations Section -->
+            <div class="calculation-section">
+                <div class="calculation-title">Battery & Time Calculations</div>
+                
+                <div class="calculation-row">
+                    <div class="calculation-label">Start Battery %</div>
+                    <div class="calculation-value">
+                        <input type="number" id="start-battery" class="calculation-input" min="0" max="100" value="100">
+                    </div>
+                </div>
+                
+                <div class="calculation-row">
+                    <div class="calculation-label">Current Battery %</div>
+                    <div class="calculation-value" id="current-battery">--</div>
+                </div>
+                
+                <div class="calculation-row">
+                    <div class="calculation-label">Start Date Time</div>
+                    <div class="calculation-value">
+                        <input type="datetime-local" id="start-datetime" class="calculation-input" style="width: 180px;">
+                    </div>
+                </div>
+                
+                <div class="calculation-row">
+                    <div class="calculation-label">Current Date Time</div>
+                    <div class="calculation-value" id="current-datetime">--</div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="calculation-row">
+                    <div class="calculation-label">Battery % Change</div>
+                    <div class="calculation-value calculation-result" id="battery-change">--</div>
+                </div>
+                
+                <div class="calculation-row">
+                    <div class="calculation-label">Time Elapsed (min)</div>
+                    <div class="calculation-value calculation-result" id="time-elapsed">--</div>
+                </div>
+                
+                <div class="calculation-row">
+                    <div class="calculation-label">% Change per Minute</div>
+                    <div class="calculation-value calculation-result" id="percent-per-minute">--</div>
+                </div>
+            </div>
+            
+            <button class="button" id="refresh-button">Continue</button>
+        </div>
+        
+        <!-- Battery Charging Card -->
+        <div class="card fade-in" style="animation-delay: 0.2s;">
+            <div class="card-header">
+                <div class="back-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </div>
+                <div>Battery Charging</div>
+                <div></div>
+            </div>
+            
+            <div class="battery-visual">
+                <div class="battery-fill" id="battery-fill"></div>
+                <div class="water-effect"></div>
+                <div class="water-ripple"></div>
+                <div class="battery-percent" id="battery-percent">--</div>
+            </div>
+            
+            <div class="toggle-switch">
+                <div>Saving Mode</div>
+                <label class="switch">
+                    <input type="checkbox" id="saving-mode">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value" id="battery-energy">--</div>
+                    <div class="stat-label">Battery Energy</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">68<span style="font-size: 16px;">km</span></div>
+                    <div class="stat-label">Remaining Distance</div>
+                </div>
+            </div>
+            
+            <div class="charging-port">
+                <div class="port-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 17h10V7H7v10z"></path>
+                        <path d="M12 7v10"></path>
+                    </svg>
+                </div>
+                <div class="port-details">
+                    <div class="port-type">Type 1 - J1772</div>
+                    <div class="port-specs" id="device-info">AC, N.America, 19.2 kW</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Green Energy Card -->
+        <div class="card fade-in" style="animation-delay: 0.4s;">
+            <div class="card-header">
+                <div class="back-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 6h16"></path>
+                        <path d="M4 12h16"></path>
+                        <path d="M4 18h16"></path>
+                    </svg>
+                </div>
+                <div class="logo">
+                    <div class="logo-icon glow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                        </svg>
+                    </div>
+                    <div>Green Energy</div>
+                </div>
+                <div class="back-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 8v4"></path>
+                        <path d="M12 16h.01"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="time-display">
+                <div>75 km</div>
+                <div id="usage-time">28 min</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="usage-progress" style="width: 50%;"></div>
+            </div>
+            
+            <div class="car-image">
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                    <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                    <path d="M5 9l2 -4h8l2 4"></path>
+                    <path d="M5 9h12v5a3 3 0 0 1 -3 3h-6a3 3 0 0 1 -3 -3v-5z"></path>
+                    <path d="M10 4v2"></path>
+                    <path d="M14 4v2"></path>
+                </svg>
+            </div>
+            
+            <div class="title">Electric Car For Better</div>
+            <div class="subtitle">The World!</div>
+            
+            <div class="info-text">
+                <div>EV range up to 41 km (25 miles)</div>
+                <div id="last-updated">CO₂ from 72 g/km</div>
+            </div>
+            
+            <button class="button">Let's Go!</button>
+        </div>
+    </div>
+    
+    <div id="not-supported" class="not-supported" style="display: none;">
+        <p>Battery API is not supported in your browser.</p>
+        <p>Please try Chrome, Edge, or Firefox for the full experience.</p>
+    </div>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        // Loading screen - Fixed to ensure it disappears
+        window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.getElementById('loading-screen').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Initialize particles.js
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {
+                            "value": 80,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#2ecc71"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            },
+                            "polygon": {
+                                "nb_sides": 5
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.3,
+                            "random": true,
+                            "anim": {
+                                "enable": false,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "enable": false,
+                                "speed": 40,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#2ecc71",
+                            "opacity": 0.2,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 2,
+                            "direction": "none",
+                            "random": false,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": false,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 0.5
+                                }
+                            },
+                            "bubble": {
+                                "distance": 400,
+                                "size": 40,
+                                "duration": 2,
+                                "opacity": 8,
+                                "speed": 3
+                            },
+                            "repulse": {
+                                "distance": 200,
+                                "duration": 0.4
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            },
+                            "remove": {
+                                "particles_nb": 2
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            } else {
+                console.warn("Particles.js not loaded");
+                // Fallback to remove loading screen if particles.js fails to load
+                document.getElementById('loading-screen').classList.add('hidden');
+            }
+        });
+
+        // DOM Elements
+        const batteryPercentageCircle = document.getElementById('battery-percentage-circle');
+        const batteryProgressCircle = document.getElementById('battery-progress-circle');
+        const batteryStatus = document.getElementById('battery-status');
+        const batteryLevelText = document.getElementById('battery-level-text');
+        const chargingStatus = document.getElementById('charging-status');
+        const chargingTime = document.getElementById('charging-time');
+        const dischargingTime = document.getElementById('discharging-time');
+        const refreshButton = document.getElementById('refresh-button');
+        const batteryFill = document.getElementById('battery-fill');
+        const batteryPercent = document.getElementById('battery-percent');
+        const batteryEnergy = document.getElementById('battery-energy');
+        const deviceInfo = document.getElementById('device-info');
+        const usageTime = document.getElementById('usage-time');
+        const usageProgress = document.getElementById('usage-progress');
+        const lastUpdated = document.getElementById('last-updated');
+        const notSupported = document.getElementById('not-supported');
+        const savingMode = document.getElementById('saving-mode');
+
+        // Calculation elements
+        const startBatteryInput = document.getElementById('start-battery');
+        const currentBatteryDisplay = document.getElementById('current-battery');
+        const startDatetimeInput = document.getElementById('start-datetime');
+        const currentDatetimeDisplay = document.getElementById('current-datetime');
+        const batteryChangeDisplay = document.getElementById('battery-change');
+        const timeElapsedDisplay = document.getElementById('time-elapsed');
+        const percentPerMinuteDisplay = document.getElementById('percent-per-minute');
+
+        // Battery variables
+        let battery = null;
+        let startTime = Date.now();
+
+        // Set default start datetime to now
+        const now = new Date();
+        const formattedDate = now.toISOString().slice(0, 16);
+        startDatetimeInput.value = formattedDate;
+
+        // Format time function
+        function formatTime(seconds) {
+            if (seconds === Infinity) return 'Calculating...';
+            if (isNaN(seconds) || seconds === null) return 'Unknown';
+            
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            
+            if (hours > 0) {
+                return `${hours}h ${minutes}m`;
+            } else {
+                return `${minutes}m`;
+            }
+        }
+
+        // Format datetime for display
+        function formatDateTime(date) {
+            return date.toLocaleString();
+        }
+
+        // Calculate battery and time differences
+        function calculateDifferences() {
+            // Get current values
+            const currentBatteryLevel = battery ? Math.floor(battery.level * 100) : 0;
+            const startBatteryLevel = parseInt(startBatteryInput.value) || 100;
+            
+            // Get dates
+            const currentDate = new Date();
+            let startDate = new Date(startDatetimeInput.value);
+            
+            // If start date is invalid, use current date
+            if (isNaN(startDate.getTime())) {
+                startDate = new Date();
+                startDatetimeInput.value = startDate.toISOString().slice(0, 16);
+            }
+            
+            // Calculate differences
+            const batteryChange = currentBatteryLevel - startBatteryLevel;
+            const timeElapsedMs = currentDate.getTime() - startDate.getTime();
+            const timeElapsedMinutes = Math.floor(timeElapsedMs / 60000);
+            
+            // Calculate percentage change per minute
+            let percentPerMinute = 0;
+            if (timeElapsedMinutes > 0) {
+                percentPerMinute = (batteryChange / timeElapsedMinutes).toFixed(2);
+            }
+            
+            // Update displays
+            currentBatteryDisplay.textContent = `${currentBatteryLevel}%`;
+            currentDatetimeDisplay.textContent = formatDateTime(currentDate);
+            batteryChangeDisplay.textContent = `${batteryChange > 0 ? '+' : ''}${batteryChange}%`;
+            timeElapsedDisplay.textContent = `${timeElapsedMinutes} min`;
+            percentPerMinuteDisplay.textContent = `${percentPerMinute}%`;
+            
+            // Color coding for battery change
+            if (batteryChange > 0) {
+                batteryChangeDisplay.style.color = '#2ecc71'; // Green for positive
+            } else if (batteryChange < 0) {
+                batteryChangeDisplay.style.color = '#e74c3c'; // Red for negative
+            } else {
+                batteryChangeDisplay.style.color = '#f39c12'; // Yellow for no change
+            }
+        }
+
+        // Create water drops animation
+        function createWaterDrops() {
+            const batteryVisual = document.querySelector('.battery-visual');
+            const level = battery ? Math.floor(battery.level * 100) : 50;
+            
+            // Only create drops if battery level is above 0
+            if (level > 0) {
+                const drop = document.createElement('div');
+                drop.style.position = 'absolute';
+                drop.style.width = '8px';
+                drop.style.height = '8px';
+                drop.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
+                drop.style.borderRadius = '50%';
+                drop.style.left = `${Math.random() * 100}%`;
+                drop.style.bottom = `${Math.random() * level}%`;
+                drop.style.opacity = '0';
+                drop.style.transform = 'scale(0)';
+                drop.style.animation = 'dropAnimation 3s forwards';
+                
+                // Add keyframes for drop animation
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    @keyframes dropAnimation {
+                        0% { opacity: 0; transform: scale(0); }
+                        50% { opacity: 0.7; transform: scale(1); }
+                        100% { opacity: 0; transform: scale(0); }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                batteryVisual.appendChild(drop);
+                
+                // Remove drop after animation completes
+                setTimeout(() => {
+                    if (batteryVisual.contains(drop)) {
+                        batteryVisual.removeChild(drop);
+                    }
+                }, 3000);
+            }
+        }
+
+        // Create water drops periodically
+        setInterval(createWaterDrops, 1000);
+
+        // Update battery UI with animations
+        function updateBatteryUI(battery) {
+            const level = Math.floor(battery.level * 100);
+            
+            // Update circle display with animation
+            batteryPercentageCircle.textContent = level;
+            batteryProgressCircle.style.background = `conic-gradient(var(--primary) ${level * 3.6}deg, transparent ${level * 3.6}deg)`;
+            
+            // Update battery level text
+            batteryLevelText.textContent = `${level}% Battery`;
+            
+            // Update charging status with animation
+            if (battery.charging) {
+                chargingStatus.textContent = 'Charging';
+                chargingStatus.classList.add('glow');
+            } else {
+                chargingStatus.textContent = 'Not Charging';
+                chargingStatus.classList.remove('glow');
+            }
+            
+            // Update charging time
+            if (battery.charging) {
+                chargingTime.textContent = formatTime(battery.chargingTime);
+                dischargingTime.textContent = 'N/A';
+            } else {
+                chargingTime.textContent = 'N/A';
+                dischargingTime.textContent = formatTime(battery.dischargingTime);
+            }
+            
+            // Update battery status text with animation
+            if (level >= 80) {
+                batteryStatus.textContent = 'Excellent';
+                batteryStatus.style.color = '#2ecc71';
+            } else if (level >= 50) {
+                batteryStatus.textContent = 'Good';
+                batteryStatus.style.color = '#3498db';
+            } else if (level >= 20) {
+                batteryStatus.textContent = 'Fair';
+                batteryStatus.style.color = '#f39c12';
+            } else {
+                batteryStatus.textContent = 'Low';
+                batteryStatus.style.color = '#e74c3c';
+            }
+            
+            // Update battery visual with water effect
+            batteryFill.style.height = `${level}%`;
+            batteryPercent.textContent = level;
+            
+            // Update battery energy
+            batteryEnergy.textContent = `${level}%`;
+            
+            // Update last updated time
+            const now = new Date();
+            lastUpdated.textContent = `Last updated: ${now.toLocaleTimeString()}`;
+            
+            // Update usage time
+            const elapsedMinutes = Math.floor((Date.now() - startTime) / 60000);
+            usageTime.textContent = `${elapsedMinutes} min`;
+            
+            // Update usage progress with animation
+            usageProgress.style.width = `${Math.min(elapsedMinutes, 100)}%`;
+            
+            // Set colors based on battery level with smooth transition
+            let primaryColor, primaryDarkColor, primaryGlowColor;
+            
+            if (level <= 20) {
+                primaryColor = '#e74c3c';
+                primaryDarkColor = '#c0392b';
+                primaryGlowColor = 'rgba(231, 76, 60, 0.4)';
+            } else if (level <= 50) {
+                primaryColor = '#f39c12';
+                primaryDarkColor = '#d35400';
+                primaryGlowColor = 'rgba(243, 156, 18, 0.4)';
+            } else {
+                primaryColor = '#2ecc71';
+                primaryDarkColor = '#27ae60';
+                primaryGlowColor = 'rgba(46, 204, 113, 0.4)';
+            }
+            
+            document.documentElement.style.setProperty('--primary', primaryColor);
+            document.documentElement.style.setProperty('--primary-dark', primaryDarkColor);
+            document.documentElement.style.setProperty('--primary-glow', primaryGlowColor);
+            
+            // Update calculation section
+            calculateDifferences();
+        }
+
+        // Initialize battery monitoring with animations
+        async function initBattery() {
+            try {
+                if ('getBattery' in navigator) {
+                    battery = await navigator.getBattery();
+                    
+                    // Initial update with animation
+                    updateBatteryUI(battery);
+                    
+                    // Set up event listeners for battery changes
+                    battery.addEventListener('levelchange', () => {
+                        updateBatteryUI(battery);
+                        // Add pulse animation to battery percentage
+                        batteryPercentageCircle.classList.add('pulse');
+                        setTimeout(() => {
+                            batteryPercentageCircle.classList.remove('pulse');
+                        }, 2000);
+                    });
+                    
+                    battery.addEventListener('chargingchange', () => {
+                        updateBatteryUI(battery);
+                        // Add pulse animation to charging status
+                        chargingStatus.classList.add('pulse');
+                        setTimeout(() => {
+                            chargingStatus.classList.remove('pulse');
+                        }, 2000);
+                    });
+                    
+                    battery.addEventListener('chargingtimechange', () => updateBatteryUI(battery));
+                    battery.addEventListener('dischargingtimechange', () => updateBatteryUI(battery));
+                    
+                    // Update device info
+                    const userAgent = navigator.userAgent;
+                    let deviceType = 'Unknown';
+                    
+                    if (/Android/i.test(userAgent)) {
+                        deviceType = 'Android Device';
+                    } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+                        deviceType = 'iOS Device';
+                    } else if (/Windows/i.test(userAgent)) {
+                        deviceType = 'Windows Device';
+                    } else if (/Mac/i.test(userAgent)) {
+                        deviceType = 'Mac Device';
+                    } else if (/Linux/i.test(userAgent)) {
+                        deviceType = 'Linux Device';
+                    }
+                    
+                    deviceInfo.textContent = `${deviceType}, ${navigator.platform}`;
+                    
+                    // Set up refresh button with animation
+                    refreshButton.addEventListener('click', () => {
+                        refreshButton.classList.add('pulse');
+                        setTimeout(() => {
+                            refreshButton.classList.remove('pulse');
+                            updateBatteryUI(battery);
+                        }, 300);
+                    });
+                    
+                    // Set up saving mode toggle with animation
+                    savingMode.addEventListener('change', function() {
+                        if (this.checked) {
+                            document.documentElement.style.setProperty('--primary', '#2ecc71');
+                            document.documentElement.style.setProperty('--primary-dark', '#27ae60');
+                            document.documentElement.style.setProperty('--primary-glow', 'rgba(46, 204, 113, 0.4)');
+                        } else {
+                            // Revert to color based on battery level
+                            const level = Math.floor(battery.level * 100);
+                            if (level <= 20) {
+                                document.documentElement.style.setProperty('--primary', '#e74c3c');
+                                document.documentElement.style.setProperty('--primary-dark', '#c0392b');
+                                document.documentElement.style.setProperty('--primary-glow', 'rgba(231, 76, 60, 0.4)');
+                            } else if (level <= 50) {
+                                document.documentElement.style.setProperty('--primary', '#f39c12');
+                                document.documentElement.style.setProperty('--primary-dark', '#d35400');
+                                document.documentElement.style.setProperty('--primary-glow', 'rgba(243, 156, 18, 0.4)');
+                            } else {
+                                document.documentElement.style.setProperty('--primary', '#2ecc71');
+                                document.documentElement.style.setProperty('--primary-dark', '#27ae60');
+                                document.documentElement.style.setProperty('--primary-glow', 'rgba(46, 204, 113, 0.4)');
+                            }
+                        }
+                    });
+                    
+                    // Set up calculation input event listeners
+                    startBatteryInput.addEventListener('change', calculateDifferences);
+                    startDatetimeInput.addEventListener('change', calculateDifferences);
+                    
+                    // Update UI every minute with subtle animation
+                    setInterval(() => {
+                        updateBatteryUI(battery);
+                    }, 60000);
+                    
+                    // Update calculations every 10 seconds
+                    setInterval(calculateDifferences, 10000);
+                } else {
+                    // Battery API not supported
+                    notSupported.style.display = 'block';
+                    document.querySelector('.container').style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error accessing battery:', error);
+                notSupported.style.display = 'block';
+                document.querySelector('.container').style.display = 'none';
+            }
+        }
+
+        // Initialize when the page loads
+        window.addEventListener('load', initBattery);
+        
+        // Ensure loading screen disappears even if there's an error
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (document.getElementById('loading-screen')) {
+                    document.getElementById('loading-screen').classList.add('hidden');
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
