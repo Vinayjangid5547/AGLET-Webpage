@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -311,9 +312,11 @@
             0% {
                 transform: translateY(0) scaleY(1);
             }
+
             50% {
                 transform: translateY(-5px) scaleY(1.02);
             }
+
             100% {
                 transform: translateY(0) scaleY(1);
             }
@@ -334,6 +337,7 @@
             0% {
                 transform: translateX(0);
             }
+
             100% {
                 transform: translateX(-50%);
             }
@@ -394,11 +398,11 @@
             border-radius: 50%;
         }
 
-        input:checked + .slider {
+        input:checked+.slider {
             background-color: var(--primary);
         }
 
-        input:checked + .slider:before {
+        input:checked+.slider:before {
             transform: translateX(26px);
         }
 
@@ -507,6 +511,7 @@
             0% {
                 transform: translateX(-100%);
             }
+
             100% {
                 transform: translateX(100%);
             }
@@ -575,6 +580,7 @@
             0% {
                 filter: drop-shadow(0 0 2px var(--primary-glow));
             }
+
             100% {
                 filter: drop-shadow(0 0 10px var(--primary-glow));
             }
@@ -588,9 +594,11 @@
             0% {
                 transform: scale(1);
             }
+
             50% {
                 transform: scale(1.05);
             }
+
             100% {
                 transform: scale(1);
             }
@@ -605,6 +613,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -679,7 +688,7 @@
                 flex-direction: column;
                 align-items: center;
             }
-            
+
             .card {
                 max-width: 100%;
             }
@@ -717,8 +726,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .loading-text {
@@ -728,6 +742,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Loading Screen -->
     <div class="loading" id="loading-screen">
@@ -737,21 +752,23 @@
 
     <!-- Particles.js Background -->
     <div id="particles-js"></div>
-    
+
     <h1 class="fade-in">Battery Monitor</h1>
-    
+
     <div class="container">
         <!-- Battery Condition Card -->
         <div class="card fade-in">
             <div class="card-header">
                 <div class="back-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M15 18l-6-6 6-6"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6" />
                     </svg>
                 </div>
                 <div>Battery Condition</div>
                 <div class="signal-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M2 20h.01"></path>
                         <path d="M7 20v-4"></path>
                         <path d="M12 20v-8"></path>
@@ -759,7 +776,7 @@
                     </svg>
                 </div>
             </div>
-            
+
             <div class="battery-circle">
                 <div class="battery-outer">
                     <div class="battery-progress" id="battery-progress-circle"></div>
@@ -770,10 +787,10 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="battery-level-text">--% Battery</div>
             <div class="battery-status">Limit: 100%</div>
-            
+
             <div class="battery-details">
                 <div class="detail-row">
                     <div class="detail-label">Charging Status</div>
@@ -788,75 +805,77 @@
                     <div class="detail-value" id="discharging-time">--</div>
                 </div>
             </div>
-            
+
             <!-- Battery & Time Calculations Section -->
             <div class="calculation-section">
                 <div class="calculation-title">Battery & Time Calculations</div>
-                
+
                 <div class="calculation-row">
                     <div class="calculation-label">Start Battery %</div>
                     <div class="calculation-value">
                         <input type="number" id="start-battery" class="calculation-input" min="0" max="100" value="100">
                     </div>
                 </div>
-                
+
                 <div class="calculation-row">
                     <div class="calculation-label">Current Battery %</div>
                     <div class="calculation-value" id="current-battery">--</div>
                 </div>
-                
+
                 <div class="calculation-row">
                     <div class="calculation-label">Start Date Time</div>
                     <div class="calculation-value">
-                        <input type="datetime-local" id="start-datetime" class="calculation-input" style="width: 180px;">
+                        <input type="datetime-local" id="start-datetime" class="calculation-input"
+                            style="width: 180px;">
                     </div>
                 </div>
-                
+
                 <div class="calculation-row">
                     <div class="calculation-label">Current Date Time</div>
                     <div class="calculation-value" id="current-datetime">--</div>
                 </div>
-                
+
                 <div class="divider"></div>
-                
+
                 <div class="calculation-row">
                     <div class="calculation-label">Battery % Change</div>
                     <div class="calculation-value calculation-result" id="battery-change">--</div>
                 </div>
-                
+
                 <div class="calculation-row">
                     <div class="calculation-label">Time Elapsed (min)</div>
                     <div class="calculation-value calculation-result" id="time-elapsed">--</div>
                 </div>
-                
+
                 <div class="calculation-row">
                     <div class="calculation-label">% Change per Minute</div>
                     <div class="calculation-value calculation-result" id="percent-per-minute">--</div>
                 </div>
             </div>
-            
+
             <button class="button" id="refresh-button">Continue</button>
         </div>
-        
+
         <!-- Battery Charging Card -->
         <div class="card fade-in" style="animation-delay: 0.2s;">
             <div class="card-header">
                 <div class="back-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M15 18l-6-6 6-6"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6" />
                     </svg>
                 </div>
                 <div>Battery Charging</div>
                 <div></div>
             </div>
-            
+
             <div class="battery-visual">
                 <div class="battery-fill" id="battery-fill"></div>
                 <div class="water-effect"></div>
                 <div class="water-ripple"></div>
                 <div class="battery-percent" id="battery-percent">--</div>
             </div>
-            
+
             <div class="toggle-switch">
                 <div>Saving Mode</div>
                 <label class="switch">
@@ -864,7 +883,7 @@
                     <span class="slider"></span>
                 </label>
             </div>
-            
+
             <div class="stats-grid">
                 <div class="stat-box">
                     <div class="stat-value" id="battery-energy">--</div>
@@ -875,10 +894,11 @@
                     <div class="stat-label">Remaining Distance</div>
                 </div>
             </div>
-            
+
             <div class="charging-port">
                 <div class="port-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M7 17h10V7H7v10z"></path>
                         <path d="M12 7v10"></path>
                     </svg>
@@ -889,12 +909,13 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Green Energy Card -->
         <div class="card fade-in" style="animation-delay: 0.4s;">
             <div class="card-header">
                 <div class="back-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 6h16"></path>
                         <path d="M4 12h16"></path>
                         <path d="M4 18h16"></path>
@@ -902,21 +923,23 @@
                 </div>
                 <div class="logo">
                     <div class="logo-icon glow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
                         </svg>
                     </div>
                     <div>Green Energy</div>
                 </div>
                 <div class="back-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <path d="M12 8v4"></path>
                         <path d="M12 16h.01"></path>
                     </svg>
                 </div>
             </div>
-            
+
             <div class="time-display">
                 <div>75 km</div>
                 <div id="usage-time">28 min</div>
@@ -924,9 +947,10 @@
             <div class="progress-bar">
                 <div class="progress-fill" id="usage-progress" style="width: 50%;"></div>
             </div>
-            
+
             <div class="car-image">
-                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
                     <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
                     <path d="M5 9l2 -4h8l2 4"></path>
@@ -935,19 +959,19 @@
                     <path d="M14 4v2"></path>
                 </svg>
             </div>
-            
+
             <div class="title">Electric Car For Better</div>
             <div class="subtitle">The World!</div>
-            
+
             <div class="info-text">
                 <div>EV range up to 41 km (25 miles)</div>
                 <div id="last-updated">CO₂ from 72 g/km</div>
             </div>
-            
+
             <button class="button">Let's Go!</button>
         </div>
     </div>
-    
+
     <div id="not-supported" class="not-supported" style="display: none;">
         <p>Battery API is not supported in your browser.</p>
         <p>Please try Chrome, Edge, or Firefox for the full experience.</p>
@@ -955,17 +979,17 @@
 
     <!-- Particles.js -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
+
     <script>
         // Loading screen - Fixed to ensure it disappears
-        window.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
+        window.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
                 document.getElementById('loading-screen').classList.add('hidden');
             }, 1500);
         });
 
         // Initialize particles.js
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             if (typeof particlesJS !== 'undefined') {
                 particlesJS('particles-js', {
                     "particles": {
@@ -1120,10 +1144,10 @@
         function formatTime(seconds) {
             if (seconds === Infinity) return 'Calculating...';
             if (isNaN(seconds) || seconds === null) return 'Unknown';
-            
+
             const hours = Math.floor(seconds / 3600);
             const minutes = Math.floor((seconds % 3600) / 60);
-            
+
             if (hours > 0) {
                 return `${hours}h ${minutes}m`;
             } else {
@@ -1141,35 +1165,35 @@
             // Get current values
             const currentBatteryLevel = battery ? Math.floor(battery.level * 100) : 0;
             const startBatteryLevel = parseInt(startBatteryInput.value) || 100;
-            
+
             // Get dates
             const currentDate = new Date();
             let startDate = new Date(startDatetimeInput.value);
-            
+
             // If start date is invalid, use current date
             if (isNaN(startDate.getTime())) {
                 startDate = new Date();
                 startDatetimeInput.value = startDate.toISOString().slice(0, 16);
             }
-            
+
             // Calculate differences
             const batteryChange = currentBatteryLevel - startBatteryLevel;
             const timeElapsedMs = currentDate.getTime() - startDate.getTime();
             const timeElapsedMinutes = Math.floor(timeElapsedMs / 60000);
-            
+
             // Calculate percentage change per minute
             let percentPerMinute = 0;
             if (timeElapsedMinutes > 0) {
                 percentPerMinute = (batteryChange / timeElapsedMinutes).toFixed(2);
             }
-            
+
             // Update displays
             currentBatteryDisplay.textContent = `${currentBatteryLevel}%`;
             currentDatetimeDisplay.textContent = formatDateTime(currentDate);
             batteryChangeDisplay.textContent = `${batteryChange > 0 ? '+' : ''}${batteryChange}%`;
             timeElapsedDisplay.textContent = `${timeElapsedMinutes} min`;
             percentPerMinuteDisplay.textContent = `${percentPerMinute}%`;
-            
+
             // Color coding for battery change
             if (batteryChange > 0) {
                 batteryChangeDisplay.style.color = '#2ecc71'; // Green for positive
@@ -1184,7 +1208,7 @@
         function createWaterDrops() {
             const batteryVisual = document.querySelector('.battery-visual');
             const level = battery ? Math.floor(battery.level * 100) : 50;
-            
+
             // Only create drops if battery level is above 0
             if (level > 0) {
                 const drop = document.createElement('div');
@@ -1198,7 +1222,7 @@
                 drop.style.opacity = '0';
                 drop.style.transform = 'scale(0)';
                 drop.style.animation = 'dropAnimation 3s forwards';
-                
+
                 // Add keyframes for drop animation
                 const style = document.createElement('style');
                 style.innerHTML = `
@@ -1209,9 +1233,9 @@
                     }
                 `;
                 document.head.appendChild(style);
-                
+
                 batteryVisual.appendChild(drop);
-                
+
                 // Remove drop after animation completes
                 setTimeout(() => {
                     if (batteryVisual.contains(drop)) {
@@ -1227,14 +1251,14 @@
         // Update battery UI with animations
         function updateBatteryUI(battery) {
             const level = Math.floor(battery.level * 100);
-            
+
             // Update circle display with animation
             batteryPercentageCircle.textContent = level;
             batteryProgressCircle.style.background = `conic-gradient(var(--primary) ${level * 3.6}deg, transparent ${level * 3.6}deg)`;
-            
+
             // Update battery level text
             batteryLevelText.textContent = `${level}% Battery`;
-            
+
             // Update charging status with animation
             if (battery.charging) {
                 chargingStatus.textContent = 'Charging';
@@ -1243,7 +1267,7 @@
                 chargingStatus.textContent = 'Not Charging';
                 chargingStatus.classList.remove('glow');
             }
-            
+
             // Update charging time
             if (battery.charging) {
                 chargingTime.textContent = formatTime(battery.chargingTime);
@@ -1252,7 +1276,7 @@
                 chargingTime.textContent = 'N/A';
                 dischargingTime.textContent = formatTime(battery.dischargingTime);
             }
-            
+
             // Update battery status text with animation
             if (level >= 80) {
                 batteryStatus.textContent = 'Excellent';
@@ -1267,28 +1291,28 @@
                 batteryStatus.textContent = 'Low';
                 batteryStatus.style.color = '#e74c3c';
             }
-            
+
             // Update battery visual with water effect
             batteryFill.style.height = `${level}%`;
             batteryPercent.textContent = level;
-            
+
             // Update battery energy
             batteryEnergy.textContent = `${level}%`;
-            
+
             // Update last updated time
             const now = new Date();
             lastUpdated.textContent = `Last updated: ${now.toLocaleTimeString()}`;
-            
+
             // Update usage time
             const elapsedMinutes = Math.floor((Date.now() - startTime) / 60000);
             usageTime.textContent = `${elapsedMinutes} min`;
-            
+
             // Update usage progress with animation
             usageProgress.style.width = `${Math.min(elapsedMinutes, 100)}%`;
-            
+
             // Set colors based on battery level with smooth transition
             let primaryColor, primaryDarkColor, primaryGlowColor;
-            
+
             if (level <= 20) {
                 primaryColor = '#e74c3c';
                 primaryDarkColor = '#c0392b';
@@ -1302,11 +1326,11 @@
                 primaryDarkColor = '#27ae60';
                 primaryGlowColor = 'rgba(46, 204, 113, 0.4)';
             }
-            
+
             document.documentElement.style.setProperty('--primary', primaryColor);
             document.documentElement.style.setProperty('--primary-dark', primaryDarkColor);
             document.documentElement.style.setProperty('--primary-glow', primaryGlowColor);
-            
+
             // Update calculation section
             calculateDifferences();
         }
@@ -1316,10 +1340,10 @@
             try {
                 if ('getBattery' in navigator) {
                     battery = await navigator.getBattery();
-                    
+
                     // Initial update with animation
                     updateBatteryUI(battery);
-                    
+
                     // Set up event listeners for battery changes
                     battery.addEventListener('levelchange', () => {
                         updateBatteryUI(battery);
@@ -1329,23 +1353,32 @@
                             batteryPercentageCircle.classList.remove('pulse');
                         }, 2000);
                     });
-                    
+
                     battery.addEventListener('chargingchange', () => {
                         updateBatteryUI(battery);
+
                         // Add pulse animation to charging status
                         chargingStatus.classList.add('pulse');
                         setTimeout(() => {
                             chargingStatus.classList.remove('pulse');
                         }, 2000);
+
+                        // If the device just started charging, set the start datetime and battery percentage
+                        if (battery.charging) {
+                            const now = new Date();
+                            startDatetimeInput.value = now.toISOString().slice(0, 16);
+                            startBatteryInput.value = Math.floor(battery.level * 100);
+                            calculateDifferences(); // Update calculations
+                        }
                     });
-                    
+
                     battery.addEventListener('chargingtimechange', () => updateBatteryUI(battery));
                     battery.addEventListener('dischargingtimechange', () => updateBatteryUI(battery));
-                    
+
                     // Update device info
                     const userAgent = navigator.userAgent;
                     let deviceType = 'Unknown';
-                    
+
                     if (/Android/i.test(userAgent)) {
                         deviceType = 'Android Device';
                     } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
@@ -1357,9 +1390,9 @@
                     } else if (/Linux/i.test(userAgent)) {
                         deviceType = 'Linux Device';
                     }
-                    
+
                     deviceInfo.textContent = `${deviceType}, ${navigator.platform}`;
-                    
+
                     // Set up refresh button with animation
                     refreshButton.addEventListener('click', () => {
                         refreshButton.classList.add('pulse');
@@ -1368,9 +1401,9 @@
                             updateBatteryUI(battery);
                         }, 300);
                     });
-                    
+
                     // Set up saving mode toggle with animation
-                    savingMode.addEventListener('change', function() {
+                    savingMode.addEventListener('change', function () {
                         if (this.checked) {
                             document.documentElement.style.setProperty('--primary', '#2ecc71');
                             document.documentElement.style.setProperty('--primary-dark', '#27ae60');
@@ -1393,16 +1426,16 @@
                             }
                         }
                     });
-                    
+
                     // Set up calculation input event listeners
                     startBatteryInput.addEventListener('change', calculateDifferences);
                     startDatetimeInput.addEventListener('change', calculateDifferences);
-                    
+
                     // Update UI every minute with subtle animation
                     setInterval(() => {
                         updateBatteryUI(battery);
                     }, 60000);
-                    
+
                     // Update calculations every 10 seconds
                     setInterval(calculateDifferences, 10000);
                 } else {
@@ -1419,10 +1452,10 @@
 
         // Initialize when the page loads
         window.addEventListener('load', initBattery);
-        
+
         // Ensure loading screen disappears even if there's an error
-        window.addEventListener('load', function() {
-            setTimeout(function() {
+        window.addEventListener('load', function () {
+            setTimeout(function () {
                 if (document.getElementById('loading-screen')) {
                     document.getElementById('loading-screen').classList.add('hidden');
                 }
@@ -1430,4 +1463,5 @@
         });
     </script>
 </body>
+
 </html>
